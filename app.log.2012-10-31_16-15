@@ -1,0 +1,25 @@
+12-10-31 16:13:24.578 root         DEBUG    start Order GET response
+12-10-31 16:13:31.575 root         DEBUG    start Order PUT response
+12-10-31 16:13:31.575 root         DEBUG    has right HTTP_AUTHORIZATION
+12-10-31 16:13:31.576 root         DEBUG    start saveOrderInfo
+12-10-31 16:13:31.576 root         DEBUG    start compareOrderInfo
+12-10-31 16:13:31.576 root         DEBUG    start NotExitsOrderid
+12-10-31 16:13:31.579 root         ERROR    exception occur, see the traceback.log
+12-10-31 16:13:31.580 root         DEBUG    start IsExitsProductid
+12-10-31 16:13:31.584 root         ERROR    exception occur, see the traceback.log
+12-10-31 16:15:19.849 root         DEBUG    start Order PUT response
+12-10-31 16:15:19.849 root         DEBUG    has right HTTP_AUTHORIZATION
+12-10-31 16:15:19.849 root         DEBUG    start saveOrderInfo
+12-10-31 16:15:19.849 root         DEBUG    start compareOrderInfo
+12-10-31 16:15:19.850 root         DEBUG    start NotExitsOrderid
+12-10-31 16:15:19.853 root         ERROR    exception occur, see the traceback.log
+12-10-31 16:15:19.854 root         DEBUG    start IsExitsProductid
+12-10-31 16:15:19.858 root         ERROR    exception occur, see the traceback.log
+12-10-31 16:15:47.432 root         DEBUG    start Order PUT response
+12-10-31 16:15:47.433 root         DEBUG    has right HTTP_AUTHORIZATION
+12-10-31 16:15:47.433 root         DEBUG    start saveOrderInfo
+12-10-31 16:15:47.433 root         DEBUG    start compareOrderInfo
+12-10-31 16:15:47.433 root         DEBUG    start NotExitsOrderid
+12-10-31 16:15:47.437 root         ERROR    exception occur, see the traceback.log
+12-10-31 16:15:47.438 root         DEBUG    start IsExitsProductid
+12-10-31 16:15:47.441 root         ERROR    exception occur, see the traceback.log
