@@ -1,8 +1,0 @@
-12-10-31 16:30:27.384 root         DEBUG    start Order PUT response
-12-10-31 16:30:27.385 root         DEBUG    has right HTTP_AUTHORIZATION
-12-10-31 16:30:27.385 root         DEBUG    start saveOrderInfo
-12-10-31 16:30:27.385 root         DEBUG    start compareOrderInfo
-12-10-31 16:30:27.385 root         DEBUG    start NotExitsOrderid
-12-10-31 16:30:27.389 root         ERROR    exception occur, see the traceback.log
-12-10-31 16:30:27.390 root         DEBUG    start IsExitsProductid
-12-10-31 16:30:27.393 root         ERROR    exception occur, see the traceback.log
