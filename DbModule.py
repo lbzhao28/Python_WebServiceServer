@@ -75,7 +75,7 @@ def IsValidContactAddress(inOrderInfo):
 
         #get provinceid from dic_sys_province
         myvar = dict(chinese=inOrderInfo["contactProvince"])
-        entries = dbI8.select('dic_sys_province',myvar,what="provinceid",where="chinese=$chinese")
+        entries = dbI8.select('i8.dic_sys_province',myvar,what="provinceid",where="chinese=$chinese")
         localProvinceId = entries[0].PROVINCEID
 
         updateDict = {'orderProvinceId':localProvinceId}
@@ -85,7 +85,7 @@ def IsValidContactAddress(inOrderInfo):
 
         #get cityid from dic_sys_city
         myvar = dict(chinese=inOrderInfo["contactCity"])
-        entries = dbI8.select('dic_sys_city',myvar,what="cityid",where="chinese=$chinese")
+        entries = dbI8.select('i8.dic_sys_city',myvar,what="cityid",where="chinese=$chinese")
         localCityId = entries[0].CITYID
 
         updateDict = {'orderCityId':localCityId}
@@ -95,7 +95,7 @@ def IsValidContactAddress(inOrderInfo):
 
         #get addressid from dic_sys_ems
         myvar = dict(name=inOrderInfo["contactDistrict"],provinceid=localProvinceId,city=localCityId)
-        entries = dbI8.select('dic_sys_ems',myvar,what="spellid",where="name=$name and provinceid=$provinceid and city=$city")
+        entries = dbI8.select('i8.dic_sys_ems',myvar,what="spellid",where="name=$name and provinceid=$provinceid and city=$city")
         localSpellId = entries[0].SPELLID
         logger.debug("localSpellId is :"+localSpellId )
 
@@ -129,14 +129,14 @@ def NotExitsContact(inOrderInfo):
         hasPhone = False
 
         myvar = dict(name=inOrderInfo['contactName'])
-        entries = dbI8.select('con_contact',myvar,what='contactid',where="name=$name")
+        entries = dbI8.select('i8.con_contact',myvar,what='contactid',where="name=$name")
 
         #exits contact name .
         for val in entries:
             hasName = True
 
         myvar = dict(phone=inOrderInfo['contactMobilePhone'])
-        entries = dbI8.select('con_phone',myvar,what='contactid',where="phone=$phone")
+        entries = dbI8.select('i8.con_phone',myvar,what='contactid',where="phone=$phone")
 
 
         #exits contact phone .
@@ -168,7 +168,7 @@ def NotExitsOrderid(inOrderid):
         dbI8 = DbConnect()
         myvar = dict(orderid="GWImp"+inOrderid)
         #entries = dbI8.select('con_orderhist',myvar,where="orderid=$orderid",_test=True)
-        entries = dbI8.select('con_orderhist',myvar,where="orderid=$orderid")
+        entries = dbI8.select('i8.con_orderhist',myvar,where="orderid=$orderid")
 
         #exits order id.
         for val in entries:
@@ -198,7 +198,7 @@ def IsExitsProductid(inOrderDet):
 
         for localOrderDet in inOrderDet:
             myvar = dict(prodid=localOrderDet["orderProductId"])
-            entries = dbI8.select('dic_sys_product',myvar,where="prodid=$prodid")
+            entries = dbI8.select('i8.dic_sys_product',myvar,where="prodid=$prodid")
 
             ret = False
             #exits order id.
@@ -229,7 +229,7 @@ def getOrderTransInfo(inOrderid):
         companytitle = ""
         dbI8 = DbConnect()
         myvar = dict(orderid="GWImp"+inOrderid)
-        entries = dbI8.select('con_orderhist',myvar,what='mailid',where="orderid=$orderid")
+        entries = dbI8.select('i8.con_orderhist',myvar,what='mailid',where="orderid=$orderid")
 
         globalDefine.globalOrderTransErrorlog = "mailid does not existed"
         for val in entries:
@@ -303,25 +303,25 @@ def saveData2Db(inOrderInfo):
         entries = dbI8.query('select sysdate from dual')
         localCrdt = entries[0].SYSDATE
 
-        dbI8.insert('con_contact',contactid=localContactId,name=inOrderInfo["contactName"],crdt=localCrdt,crusr=inOrderInfo["crusr"],point=0,ticket=0,coupon=0)
+        dbI8.insert('i8.con_contact',contactid=localContactId,name=inOrderInfo["contactName"],crdt=localCrdt,crusr=inOrderInfo["crusr"],point=0,ticket=0,coupon=0)
 
         #get sequence for con_address
         entries = dbI8.query('select i8.seq_con_address.nextval from dual')
         localAddressId = entries[0].NEXTVAL
 
-        dbI8.insert('con_address',addressid=localAddressId,contactid=localContactId,nation='china',province=inOrderInfo["orderProvinceId"],city=inOrderInfo["orderCityId"],district=inOrderInfo["orderSpellId"],spellid=inOrderInfo["orderSpellId"],address = inOrderInfo["contactAddr"],prmadd='Y',addrtypeid='1',zip=inOrderInfo['contactPostCode'],crdt=localCrdt,crusr=inOrderInfo["crusr"])
+        dbI8.insert('i8.con_address',addressid=localAddressId,contactid=localContactId,nation='china',province=inOrderInfo["orderProvinceId"],city=inOrderInfo["orderCityId"],district=inOrderInfo["orderSpellId"],spellid=inOrderInfo["orderSpellId"],address = inOrderInfo["contactAddr"],prmadd='Y',addrtypeid='1',zip=inOrderInfo['contactPostCode'],crdt=localCrdt,crusr=inOrderInfo["crusr"])
 
         #get sequence for con_phone
         entries = dbI8.query('select i8.seq_con_phone.nextval from dual')
         localPhoneId = entries[0].NEXTVAL
 
-        dbI8.insert('con_phone',phoneid=localPhoneId,contactid=localContactId,phone=inOrderInfo["contactMobilePhone"],phonetypeid='1',prmphn='Y',crdt=localCrdt,crusr=inOrderInfo["crusr"])
+        dbI8.insert('i8.con_phone',phoneid=localPhoneId,contactid=localContactId,phone=inOrderInfo["contactMobilePhone"],phonetypeid='1',prmphn='Y',crdt=localCrdt,crusr=inOrderInfo["crusr"])
 
         if (inOrderInfo["contactFixPhone"] != ''):
             #get sequence for con_phone
             entries = dbI8.query('select i8.seq_con_phone.nextval from dual')
             localPhoneId = entries[0].NEXTVAL
-            dbI8.insert('con_phone',phoneid=localPhoneId,contactid=localContactId,phone=inOrderInfo["contactFixPhone"],phonetypeid='2',prmphn='N',crdt=localCrdt,crusr=inOrderInfo["crusr"])
+            dbI8.insert('i8.con_phone',phoneid=localPhoneId,contactid=localContactId,phone=inOrderInfo["contactFixPhone"],phonetypeid='2',prmphn='N',crdt=localCrdt,crusr=inOrderInfo["crusr"])
 
         localOrderId ="GWImp"+inOrderInfo["orderId"]
 
@@ -332,7 +332,7 @@ def saveData2Db(inOrderInfo):
             localStatus = getConfig("orderInfo","orderstatus_weifu","str")
             localOrderDetStatus = getConfig("orderDet","status_weifu","str")
 
-        dbI8.insert('con_orderhist',orderid=localOrderId,contactid=localContactId,addressid=localAddressId,paytype=getConfig("orderInfo","paytype","str"),mailtype=getConfig("orderInfo","mailtype","str"),ordertype=getConfig("orderInfo","ordertype","str"),crdt=localCrdt,crusr=inOrderInfo["crusr"],grpid='',status=localStatus,mailprice=inOrderInfo["mailPrice"],prodprice=100,discount=0,totalprice=inOrderInfo["orderPrice"],pointuse=0,couponuse=0,couponget=0,nowmoney=100,consignee=inOrderInfo["contactName"],consignphn=inOrderInfo["contactMobilePhone"])
+        dbI8.insert('i8.con_orderhist',orderid=localOrderId,contactid=localContactId,addressid=localAddressId,paytype=getConfig("orderInfo","paytype","str"),mailtype=getConfig("orderInfo","mailtype","str"),ordertype=getConfig("orderInfo","ordertype","str"),crdt=localCrdt,crusr=inOrderInfo["crusr"],grpid='',status=localStatus,mailprice=inOrderInfo["mailPrice"],prodprice=100,discount=0,totalprice=inOrderInfo["orderPrice"],pointuse=0,couponuse=0,couponget=0,nowmoney=100,consignee=inOrderInfo["contactName"],consignphn=inOrderInfo["contactMobilePhone"])
 
         for localOrderDet in inOrderInfo["orderDet"]:
             #get sequence for con_orderdet
@@ -341,16 +341,16 @@ def saveData2Db(inOrderInfo):
 
             #get uprice,snapid from dic_sys_product
             myvar = dict(prodid=localOrderDet["orderProductId"])
-            entries = dbI8.select('dic_sys_product',myvar,what="snapid",where="prodid=$prodid")
+            entries = dbI8.select('i8.dic_sys_product',myvar,what="snapid",where="prodid=$prodid")
             localProdSnapId = entries[0].SNAPID
 
             myvar = dict(prodid=localOrderDet["orderProductId"])
-            entries = dbI8.select('dic_sys_product',myvar,what="unitprice",where="prodid=$prodid")
+            entries = dbI8.select('i8.dic_sys_product',myvar,what="unitprice",where="prodid=$prodid")
             localProdUnitPrice = entries[0].UNITPRICE
 
             localDiscout = (int)(localProdUnitPrice) - (int)(localOrderDet["orderProductSalePrice"])
 
-            dbI8.insert('con_orderdet',orderdetid=localOrderDetId,orderid=localOrderId,contactid=localContactId,prodid=localOrderDet["orderProductId"],soldwith=getConfig("orderDet","soldwith","str"),status=localOrderDetStatus,uprice = localProdUnitPrice,prodnum=localOrderDet["orderProductNum"],payment=localOrderDet["orderProductSalePrice"],crdt=localCrdt,snapid=localProdSnapId,discount=localDiscout,pointget=0)
+            dbI8.insert('i8.con_orderdet',orderdetid=localOrderDetId,orderid=localOrderId,contactid=localContactId,prodid=localOrderDet["orderProductId"],soldwith=getConfig("orderDet","soldwith","str"),status=localOrderDetStatus,uprice = localProdUnitPrice,prodnum=localOrderDet["orderProductNum"],payment=localOrderDet["orderProductSalePrice"],crdt=localCrdt,snapid=localProdSnapId,discount=localDiscout,pointget=0)
 
     except :
         t.rollback()
