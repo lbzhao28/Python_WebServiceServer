@@ -164,6 +164,12 @@ class order:
 
             globalDefine.globalOrderInfoErrorlog = "No Error"
 
+            #test sqlite.
+            #import DbModule
+            #from DbModule import saveData2DbSqlite
+
+            #saveData2DbSqlite('321')
+
             ret = False
 
             auth = web.ctx.env.get('HTTP_AUTHORIZATION')
