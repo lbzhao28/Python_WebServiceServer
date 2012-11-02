@@ -269,8 +269,9 @@ def saveData2DbSqlite(inOrderId):
         t = dbSqlite.transaction()
 
         dbSqlite.insert('orderHist',orderid=inOrderId)
+        logger.debug("saveData2DbSqlite success.")
     except :
-        t.rollback()
+        logger.debug("saveData2DbSqlite go into excption.")
         logger.error("exception occur, see the traceback.log")
         #异常写入日志文件.
         f = open('traceback.txt','a')
@@ -279,6 +280,7 @@ def saveData2DbSqlite(inOrderId):
         f.flush()
         f.close()
         ret = False
+        t.rollback()
     else:
         t.commit()
         pass
