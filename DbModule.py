@@ -350,7 +350,7 @@ def saveData2Db(inOrderInfo):
             entries = dbI8.select('i8.dic_sys_product',myvar,what="unitprice",where="prodid=$prodid")
             localProdUnitPrice = entries[0].UNITPRICE
 
-            localDiscout = (int)(localProdUnitPrice) - (int)(localOrderDet["orderProductSalePrice"])
+            localDiscout = (float)(localProdUnitPrice) - (float)(localOrderDet["orderProductSalePrice"])
 
             dbI8.insert('i8.con_orderdet',orderdetid=localOrderDetId,orderid=localOrderId,contactid=localContactId,prodid=localOrderDet["orderProductId"],soldwith=getConfig("orderDet","soldwith","str"),status=localOrderDetStatus,uprice = localProdUnitPrice,prodnum=localOrderDet["orderProductNum"],payment=localOrderDet["orderProductSalePrice"],crdt=localCrdt,snapid=localProdSnapId,discount=localDiscout,pointget=0)
 
